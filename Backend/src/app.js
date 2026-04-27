@@ -1,23 +1,38 @@
 const express = require("express");
-const cookieParser = require('cookie-parser')
-var cors = require('cors')
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const path = require("path");
 
-/*require route */
-const authRouter = require('./routes/auth.routes')
-const postRouter = require('./routes/post.routes')
-const userRouter = require('./routes/user.routes')
+const authRouter = require("./routes/auth.routes");
+const postRouter = require("./routes/post.routes");
+const userRouter = require("./routes/user.routes");
 
 const app = express();
+
 app.use(cors({
     credentials: true,
-    origin: "http://localhost:5173"
-}))
-app.use(express.json());
-app.use(cookieParser())
+    origin: true
+}));
 
-/*using router */
-app.use("/api/auth", authRouter)
-app.use("/api/posts", postRouter)
-app.use("/api/user", userRouter)
+app.use(express.json());
+app.use(cookieParser());
+
+app.use("/api/auth", authRouter);
+app.use("/api/posts", postRouter);
+app.use("/api/user", userRouter);
+
+
+
+// Path to dist
+const distPath = path.join(__dirname, "../dist");
+
+// Serve static files
+app.use(express.static(distPath));
+
+// Handle React routes
+app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+});
+
 
 module.exports = app;

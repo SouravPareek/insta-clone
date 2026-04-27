@@ -22,7 +22,7 @@ const Login = () => {
         await handleLogin(username, password)
         .then(res=>{
             console.log(res);
-            navigate("/")
+            navigate("/feed")
         })
     }
 
