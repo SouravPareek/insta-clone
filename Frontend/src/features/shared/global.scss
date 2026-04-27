@@ -1,0 +1,22 @@
+@use "./button.scss";
+
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    background-color: #131313;
+    color: whitesmoke;
+    font-family: monospace;
+}
+
+.toggleAuthForm {
+    color: rgb(229, 117, 117);
+    cursor: pointer;
+    text-decoration: none;
+}

@@ -1,0 +1,30 @@
+const express = require("express");
+
+const authController = require("../controllers/auth.controller");
+const authRouter = express.Router();
+const identifyUser = require("../middlewares/auth.middleware");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
+
+/**
+ * Post /api/auth/register
+ */
+authRouter.post(
+    "/register",
+    upload.single("profileImage"),
+    authController.registerController,
+);
+
+/**
+ * Post /api/auth/login
+ */
+authRouter.post("/login", authController.loginController);
+
+/**
+ * @route GET /api/auth/get-me
+ * @desc get the currently loggedIn user's information
+ * @access Private
+ */
+authRouter.get("/get-me", identifyUser, authController.getMeController);
+
+module.exports = authRouter;
