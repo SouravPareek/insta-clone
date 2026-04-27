@@ -6,7 +6,9 @@ const { ImageKit, toFile } = require("@imagekit/nodejs");
 const jwt = require("jsonwebtoken");
 
 const imagekit = new ImageKit({
-    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
 async function createPostController(req, res) {
