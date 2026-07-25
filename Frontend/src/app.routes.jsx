@@ -3,12 +3,13 @@ import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
 import Feed from "./features/post/pages/Feed";
 import CreatePost from "./features/post/pages/CreatePost";
+import Landing from "./features/shared/pages/Landing";
 
 function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<h1>Welcome to insta clone</h1>} />
+                <Route path="/" element={<Landing />} />
 
                 <Route path="/login" element={<Login />} />
 
