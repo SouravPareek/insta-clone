@@ -1,30 +1,64 @@
-import React from "react";
-// import { usePost } from "../hooks/usePost";
+import React, { useEffect, useState } from "react";
 
-const Post = ({user, post, loading, handleLike, handleUnlike}) => {
+const Post = ({user, post, handleLike, handleUnlike}) => {
+    const fallbackImage =
+        'data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 800%22%3E%3Crect width=%22800%22 height=%22800%22 fill=%22%23eceff3%22/%3E%3Cpath d=%22M160 560l150-150 120 120 90-90 120 120H160z%22 fill=%22%23c7d0da%22/%3E%3Ccircle cx=%22300%22 cy=%22300%22 r=%2260%22 fill=%22%23c7d0da%22/%3E%3C/svg%3E';
+    const [userImageSrc, setUserImageSrc] = useState(fallbackImage);
+    const [postImageSrc, setPostImageSrc] = useState(fallbackImage);
+
+    useEffect(() => {
+        const nextUserImage = user?.profileImage;
+        const nextPostImage = post?.imgUrl;
+
+        if (nextUserImage) {
+            const userImage = new Image();
+            userImage.onload = () => setUserImageSrc(nextUserImage);
+            userImage.onerror = () => setUserImageSrc(fallbackImage);
+            userImage.src = nextUserImage;
+        }
+
+        if (nextPostImage) {
+            const postImage = new Image();
+            postImage.onload = () => setPostImageSrc(nextPostImage);
+            postImage.onerror = () => setPostImageSrc(fallbackImage);
+            postImage.src = nextPostImage;
+        }
+    }, [post?.imgUrl, user?.profileImage]);
+
     return (
         <div className="post">
             <div className="user">
                 <div className="img-wrapper">
-                    <img src={user.profileImage} alt=""/>
+                    <img src={userImageSrc} alt=""/>
                 </div>
                 <p>{user.username}</p>
             </div>
-            <img src={post.imgUrl} alt=""/>
+            <img src={postImageSrc} alt=""/>
             <div className="icons">
                 <div className="left">
-                    <button>
-                        <svg
-                                className={post.isLiked ? "like" : ""}
-                                onClick={()=>{post.isLiked ? handleUnlike(post._id) : handleLike(post._id)}}
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                        >
-                            <path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path>
-                        </svg>
+                    <button type="button">
+                        {post.isLiked ? (
+                            <svg
+                                className="like"
+                                onClick={() => { handleUnlike(post._id); }}
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.53L12 21.35z"></path>
+                            </svg>
+                        ) : (
+                            <svg
+                                onClick={() => { handleLike(post._id); }}
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path>
+                            </svg>
+                        )}
                     </button>
-                    <button>
+                    <button type="button">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -33,7 +67,7 @@ const Post = ({user, post, loading, handleLike, handleUnlike}) => {
                             <path d="M10 3H14C18.4183 3 22 6.58172 22 11C22 15.4183 18.4183 19 14 19V22.5C9 20.5 2 17.5 2 11C2 6.58172 5.58172 3 10 3ZM12 17H14C17.3137 17 20 14.3137 20 11C20 7.68629 17.3137 5 14 5H10C6.68629 5 4 7.68629 4 11C4 14.61 6.46208 16.9656 12 19.4798V17Z"></path>
                         </svg>
                     </button>
-                    <button>
+                    <button type="button">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -44,7 +78,7 @@ const Post = ({user, post, loading, handleLike, handleUnlike}) => {
                     </button>
                 </div>
                 <div className="right">
-                    <button>
+                    <button type="button">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"

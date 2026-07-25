@@ -19,11 +19,12 @@ const Login = () => {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        await handleLogin(username, password)
-        .then(res=>{
-            console.log(res);
-            navigate("/feed")
-        })
+        try {
+            await handleLogin(username, password);
+            navigate("/feed");
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -35,6 +36,7 @@ const Login = () => {
                         type="text"
                         name="username"
                         placeholder="Enter username"
+                        autoComplete="username"
                         onInput={(e) => {
                             setUsername(e.target.value);
                         }}
@@ -44,6 +46,7 @@ const Login = () => {
                         type="password"
                         name="password"
                         placeholder="Enter password"
+                        autoComplete="current-password"
                         onInput={(e) => {
                             setPassword(e.target.value);
                         }}

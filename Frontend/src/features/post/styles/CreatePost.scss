@@ -1,8 +1,14 @@
 .post-image-label{
-    background-color: #eaeaea;
+    background-color: rgba(234, 234, 234, 0.96);
     color: rgb(25, 25, 25);
     padding-inline: 1rem;
     padding-block: 0.5rem;
     border-radius: 1rem;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+    }
 }

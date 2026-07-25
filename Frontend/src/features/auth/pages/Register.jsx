@@ -20,11 +20,12 @@ const Register = () => {
         async function handleSubmit(e) {
             e.preventDefault();
     
-            handleRegister(username, email, password)
-            .then(res=>{
-                // console.log(res);
-                navigate("/login")
-            })
+            try {
+                await handleRegister(username, email, password);
+                navigate("/login");
+            } catch (err) {
+                console.log(err);
+            }
         }
 
     return (
@@ -36,6 +37,7 @@ const Register = () => {
                         type="text"
                         name="username"
                         placeholder="Enter username"
+                        autoComplete="username"
                         onInput={(e) => {
                             setUsername(e.target.value);
                         }}
@@ -45,6 +47,7 @@ const Register = () => {
                         type="email"
                         name="email"
                         placeholder="Enter email"
+                        autoComplete="email"
                         onInput={(e) => {
                             setEmail(e.target.value);
                         }}
@@ -54,6 +57,7 @@ const Register = () => {
                         type="password"
                         name="password"
                         placeholder="Enter password"
+                        autoComplete="new-password"
                         onInput={(e) => {
                             setPassword(e.target.value);
                         }}

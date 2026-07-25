@@ -5,14 +5,19 @@
     padding-block: 1rem;
     border-radius: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 
     &.primary-button {
         background-color: #cf2342;
         color: rgb(232, 226, 226);
+        box-shadow: 0 10px 24px rgba(207, 35, 66, 0.24);
+    }
+
+    &:hover {
+        transform: translateY(-1px);
     }
 
     &:active{
-        scale: 0.95;
+        transform: translateY(0) scale(0.98);
     }
 }

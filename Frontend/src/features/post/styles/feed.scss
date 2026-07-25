@@ -16,25 +16,59 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding-block: 1rem 2rem;
+
+    .feed-header {
+        width: 100%;
+        max-width: 340px;
+        padding: 0.5rem 0 1rem;
+
+        .eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(245, 245, 245, 0.55);
+            margin-bottom: 0.35rem;
+        }
+
+        h1 {
+            font-size: 1.35rem;
+            line-height: 1.1;
+            margin-bottom: 0.35rem;
+        }
+
+        .subtext {
+            font-size: 0.9rem;
+            color: rgba(245, 245, 245, 0.68);
+        }
+    }
 
     .feed {
-        max-width: 300px;
+        max-width: 340px;
         width: 100%;
 
         .posts {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 1rem;
 
             .post {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                gap: 0.5rem;
-                background-color: #1e1c1c;
-                padding-inline: 0.5rem;
-                padding-block: 0.5rem;
+                gap: 0.75rem;
+                background: rgba(30, 28, 28, 0.96);
+                padding: 0.75rem;
+                border-radius: 1.25rem;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+                }
 
                 .user {
                     display: flex;
@@ -63,6 +97,7 @@
 
                 img {
                     width: 100%;
+                    border-radius: 0.9rem;
                 }
 
                 .icons {
@@ -73,13 +108,18 @@
                         display: flex;
                         gap: 0.75rem;
                         .like{
-                            color: red;
+                            color: #e53935;
+                            fill: #e53935;
+
+                            path {
+                                fill: #e53935;
+                            }
                         }
 
-                        @include post-icons()
+                        @include post-icons();
                     }
                     .right {
-                        @include post-icons()
+                        @include post-icons();
                     }
                 }
             }

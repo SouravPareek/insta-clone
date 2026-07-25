@@ -12,16 +12,16 @@ const Feed = () => {
         usePost();
 
     useEffect(() => {
-    const fetchFeed = async () => {
-        try {
-            await handleGetFeed();
-        } catch (err) {
-            navigate("/login");
-        }
-    };
+        const fetchFeed = async () => {
+            try {
+                await handleGetFeed();
+            } catch {
+                navigate("/login");
+            }
+        };
 
-    fetchFeed();
-}, []);
+        fetchFeed();
+    }, [handleGetFeed, navigate]);
 
     if (loading) {
         return (
@@ -42,14 +42,19 @@ const Feed = () => {
     return (
         <main className="feed-page">
             <Nav />
+            <section className="feed-header">
+                <p className="eyebrow">Feed</p>
+                <h1>Your latest posts</h1>
+                <p className="subtext">A quiet stream of new posts, likes, and updates.</p>
+            </section>
             <div className="feed">
                 <div className="posts">
                     {feed.map((post) => {
                         return (
                             <Post
+                                key={post._id}
                                 user={post.user}
                                 post={post}
-                                loading={loading}
                                 handleLike={handleLike}
                                 handleUnlike={handleUnLike}
                             />
