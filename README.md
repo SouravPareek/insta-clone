@@ -3,7 +3,8 @@
 A full-stack Instagram-like social media application built using modern web technologies.
 This project focuses on core social features like authentication, post creation, and feed interaction.
 
-🔗 **Live Demo:** https://insta-clone-9n3w.onrender.com/feed
+🔗 **Live Demo:** https://insta-clone-9n3w.onrender.com
+> Note: hosted on Render's free tier, so the backend spins down after inactivity — the first request may take 30–50s to wake up.
 
 ---
 
