@@ -1,4 +1,4 @@
-# 📸 Insta Clone (Full Stack)
+# 📸 Pixly (Full Stack)
 
 A full-stack Instagram-like social media application built using modern web technologies.
 This project focuses on core social features like authentication, post creation, and feed interaction.
